@@ -9,10 +9,9 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
-" Track the engine.
-Plugin 'SirVer/ultisnips'
-" " Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
+"Track the engine.
+"Plugin 'SirVer/ultisnips'
+"Plugin 'honza/vim-snippets'
 Plugin 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
 Plugin 'scrooloose/syntastic'
 Plugin 'terryma/vim-multiple-cursors'
@@ -32,33 +31,20 @@ Plugin 'haya14busa/vim-easyoperator-line'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'tpope/vim-fugitive'
+Plugin 'simeji/winresizer'
+Plugin 'dsimidzija/vim-nerdtree-ignore'
 Plugin 'rdnetto/YCM-Generator' 
 Plugin 'jeaye/color_coded'
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-"Plugin 'L9'
-" Git plugin not hosted on GitHub
-"Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-"Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Avoid a name conflict with L9
-"Plugin 'user/L9', {'name': 'newL9'}
-
-" All of your Plugins must be added before the following line
+"All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<leader><tab>"
-let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
+" let g:UltiSnipsExpandTrigger="<leader><tab>"
+" let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+" let g:UltiSnipsEditSplit="vertical"
 " powerline setting
 set laststatus=2   " Always show the statusline
 " miscellancouS
@@ -80,17 +66,18 @@ set nowrap
 set noic
 set expandtab
 set nowrapscan
+set bs=eol,start,indent
 " matchit
 runtime macros/matchit.vim
 " for ctrlp
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:25,results:20'
 "let g:ctrlp_by_filename = 1
 "let g:ctrlp_regexp = 1
 "set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/templates/*,*.o,*.gcda,*.d,*.gcno " MacOSX/Linux
 
-"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
  \  'dir':  '\v[\/]\.(git|hg|svn)$',
  \  'file': '\v\.(exe|so|dll|o|d|gcov|gcno|gcda)$',
@@ -98,15 +85,14 @@ let g:ctrlp_custom_ignore = {
  \ }
    
 "let g:ctrlp_user_command = 'ag %s -type f'        " MacOSX/Linuxnnoremap <Leader>fu :CtrlPFunky<Cr>
-" narrow the list down with a word under cursor
 "nnoremap <Leader>fu :CtrlPFunky<Cr>
 "nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 let g:tagbar_autoclose = 1
 "Tab configuration
 "map <leader>tn :tabnew<cr>
-map <leader>tp :tabprevious<cr>
-map <leader>tn :tabNext<cr>
+"map <leader>tp :tabprevious<cr>
+"map <leader>tn :tabNext<cr>
 "map <leader>te :tabedit
 "map <leader>tc :tabclose<cr>
 "map <leader>tm :tabmove
@@ -119,16 +105,6 @@ nmap <C-l> <C-W>l
 "let Tlist_Show_One_File=1  
 "let Tlist_Exit_OnlyWindow=1  
 
-" BufExplorer
-""""""""""""""""""""""""""""""
-"let g:bufExplorerDefaultHelp=0       " Do not show default help.
-"let g:bufExplorerShowRelativePath=1  " Show relative paths.
-"let g:bufExplorerSortBy='mru'        " Sort by most recently used.
-"let g:bufExplorerSplitRight=0        " Split left.
-"let g:bufExplorerSplitVertical=1     " Split vertically.
-"let g:bufExplorerSplitVertSize = 30  " Split width
-"let g:bufExplorerUseCurrentWindow=1  " Open in new window.
-"autocmd BufWinEnter \[Buf\ List\] setl nonumber
 
 """"""""""""""""""""""""""""""
 "winManager setting
@@ -145,7 +121,7 @@ nmap <C-l> <C-W>l
 if isdirectory(expand("~/.vim/bundle/nerdtree"))
 map <leader>ne <plug>:NERDTreeTabsToggle<CR>
 "map <leader>e :NERDTreeFind<CR>
-map <leader>nt :NERDTreeFind<CR>
+map <leader>nt :NERDTreeToggle<CR>
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
 let NERDTreeChDirMode=0
@@ -164,21 +140,22 @@ if filereadable("workspace.vim")
 endif 
 "Fast reloading of the .vimrc
 "map <silent> <leader>ss :source ~/.vimrc<cr>
-"map <silent> <leader>sw :source workspace.vim<cr>
+map <silent> <leader>sw :source workspace.vim<cr>
 "Fast editing of .vimrc
 map <silent> <leader>ee :e ~/.vimrc<cr>
 "When .vimrc is edited, reload it
 autocmd! bufwritepost .vimrc source ~/.vimrc 
+autocmd! bufwritepost workspace.vim source workspace.vim 
 
 " Function key mapping
 
-map <F2> :NERDTreeToggle<CR>
+nnoremap <F6> :GundoToggle<CR>
+"map <F6> :set nohls!<CR>:set nohls?<CR>
+nmap <F7> :TagbarTogglePause<CR>
+nmap <F8> :TagbarToggle<CR>
 map <F9> :set nonu!<CR>:set nonu?<CR>
 map <F10> :set nolist!<CR>:set nolist?<CR>
 map <F11> :set paste!<CR>:set nopaste?<CR>
-map <F6> :set nohls!<CR>:set nohls?<CR>
-nmap <F8> :TagbarToggle<CR>
-nmap <F7> :TagbarTogglePause<CR>
  "easy-motioning
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
@@ -223,31 +200,31 @@ nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 " syntastic
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 " multi cursor
 let g:multi_cursor_start_key='<C-n>'
 let g:multi_cursor_start_word_key='g<C-n>'
-nnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
-vnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
+let g:multi_cursor_insert_maps={'<BS>':1}
+
+nnoremap <silent> <leader>mf :MultipleCursorsFind <C-R><C-W>
+vnoremap <silent> <leader>mf :MultipleCursorsFind <C-R><C-W>
 
 " ctrlsf settings
 
 let g:ctrlsf_default_root = 'project+fw'
 " m4
-let g:m4_default_quote="`,'" 
-let g:m4_default_comment='#' 
-"vmap     <C-F>F <Plug>CtrlSFVwordExec
+"let g:m4_default_quote="`,'" 
+"let g:m4_default_comment='#' 
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
 nmap     <C-F>n <Plug>CtrlSFCwordPath
 nmap     <C-F>p <Plug>CtrlSFPwordPath
-nmap     <C-F>f <Plug>CtrlSFCCwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-nmap     <C-F>l <Plug>CtrlSFQuickfixPrompt
-vmap     <C-F>l <Plug>CtrlSFQuickfixVwordPath
-"vmap     <C-F>L <Plug>CtrlSFQuickfixVwordExec
 
 let g:ycm_semantic_triggers =  {
   \   'c' : ['->', '.','re![_a-zA-z0-9]'],
@@ -274,7 +251,7 @@ endfunction
 function! Multiple_cursors_after()
   let g:ycm_filetype_whitelist = s:old_ycm_whitelist
 endfunction
-au FileType qf call AdjustWindowHeight(1, 4)
-function! AdjustWindowHeight(minheight, maxheight)
-  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
-endfunction
+"au FileType qf call AdjustWindowHeight(1, 4)
+"function! AdjustWindowHeight(minheight, maxheight)
+  "exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+"endfunction
