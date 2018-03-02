@@ -1,0 +1,5 @@
+Server: nginx/1.12.1
+Date: Thu, 01 Mar 2018 03:09:34 GMT
+Content-Type: text/html; charset=utf-8
+X-Upstream: spidyquotes-master_web
+Content-Encoding: gzip
