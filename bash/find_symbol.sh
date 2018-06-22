@@ -7,14 +7,9 @@
 # 
 #   DESCRIPTION: 
 # 
-#       OPTIONS: ---
-#  REQUIREMENTS: ---
-#          BUGS: ---
-#         NOTES: ---
 #        AUTHOR: he.a.zhang (ezzghhe), he.a.zhang@ericsson.com
 #  ORGANIZATION: ericsson
 #       CREATED: 09/29/17 13:41:42
-#      REVISION:  ---
 #===============================================================================
 
 set -o nounset                              # Treat unset variables as an error

@@ -19,7 +19,6 @@ pmip
 .sw[nop]
 *.tmp
 *.vim
-.vscode
 tags
 cscope.out
 # gnu global
@@ -70,6 +69,7 @@ doc/build
 doc/cdoc/build
 # Egg metadata
 *.egg-info
+.pytest_cache/
 # The shelf plugin uses this dir
 ./.shelf
 MANIFEST
