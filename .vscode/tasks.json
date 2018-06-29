@@ -13,8 +13,9 @@
             },
             "args": [
                 "-g",
-                "-o2",
-                "-fdump-tree-all",
+                "-o",
+                "debug.exe",
+                "-O0",
                 {
                     "value": "${file}",
                     "quoting": "strong"
