@@ -1,4 +1,7 @@
 #include <stack>
+#include <string>
+#include <vector>
+#include <iostream>
 using namespace std;
 struct Node {
     int data;
@@ -11,7 +14,7 @@ void printBinaryTree(Node *root)
     stack<Node *> s;
     while(currentRoot || !s.empty()) {
         while(currentRoot) {
-            cout << currentRoot->data << "-->";
+            cout << currentRoot->data << "->";
             s.push(currentRoot);
             currentRoot = currentRoot->left;
         }
@@ -20,16 +23,26 @@ void printBinaryTree(Node *root)
         currentRoot = backTraceNode->right;
      }
 }
-void printBinaryTree_r(Node *root)
-{
-    if (!root) {
-        printBinaryTree_r(root->left);
-        cout << root->data << "-->";
-        printBinaryTree_r(root->right);
-    }
-}
-int main() 
-{
 
+vector<string> printBinaryTree_r(Node *root)
+{
+    vector<string> paths;
+    if(!root) {
+        return paths;
+    }
+    getPathsHelper(root, paths, to_string(root->data));
+}
+void getPathsHelper(Node *root, vector<string>& paths, string s) 
+{
+    if(!root->left && !root->right) {
+        paths.push_back(s);
+        return;
+    }
+    if(root->left) {
+        getPathsHelper(root->left, paths, s+"->"+to_string(root->left->data));
+    }
+    if(root->right) {
+        getPathsHelper(root->right, paths, s+"->"+to_string(root->right->data));
+    }
 }
         
