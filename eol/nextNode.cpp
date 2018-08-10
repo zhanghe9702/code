@@ -1,28 +1,27 @@
-#include <iostream>
 using namespace std;
 struct Node {
     int data;
     Node *left;
     Node *right;
     Node *parent;
-}
+};
 Node* getNext(Node * current) 
 {
     if (!current) {
-        return NULL;
+        return nullptr;
     }
     if (current->right) {
-        Node *mostLeftChild = current->right;
-        while(True) {
-            if(mostLeftChild->left) {
-                mostLeftChild = mostLeftChild->left;
+        Node *lookupNode = current->right;
+        while(true) {
+            if(lookupNode->left) {
+                lookupNode = lookupNode->left;
             } else {
-                return mostLeftChild;
+                return lookupNode;
             }
         }
     }
     Node *child = current;
-    Node *parent = NULL;
+    Node *parent = nullptr;
     while(child->parent) {
         parent= child->parent;
         if (child == parent->left) {
@@ -30,6 +29,6 @@ Node* getNext(Node * current)
         }
         child = child->parent;
     }
-    return NULL;
+    return nullptr;
 }
     
