@@ -31,10 +31,7 @@ vector<string> printBinaryTree_r(Node *root)
         return paths;
     }
     getPathsHelper(root, paths, to_string(root->data));
-<<<<<<< HEAD
     return paths;
-=======
->>>>>>> d5e9de86093b0c6a6ea7eb842b178903db4e77d1
 }
 void getPathsHelper(Node *root, vector<string>& paths, string s) 
 {
